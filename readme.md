@@ -1,1 +1,1 @@
-Template ReadMe
+The Odin Project: BATTLESHIP game
