@@ -1,6 +1,6 @@
 class CreateShip {
-    constructor(length, name){
-        this.name = name;
+    constructor(length, type){
+        this.type = type;
         this.length = length;
         this.hits = 0;
         this.sunk = false;

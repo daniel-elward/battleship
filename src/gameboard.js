@@ -1,5 +1,4 @@
-import {CreateShip} from "./ship.js";
-// const createShip = require("./ship.js");
+const createShip = require("./ship.js");
 
 class Node {
     constructor(x, y){
@@ -29,8 +28,17 @@ class Gameboard {
         return gb;
     };
 
-    placeShip(){
-    
+    placeShip(x, y, gameboard){
+        const ship = new createShip(3, "destroyer");
+        const length = ship.length;
+
+        gameboard[x][y].isPopulated = true;
+
+        for(let i = 0; i < length; i++){
+        gameboard[x][y + i].isPopulated = true;
+        };
+
+        return gameboard;
     };
 };
 
