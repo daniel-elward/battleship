@@ -13,8 +13,11 @@ class Gameboard {
     constructor(owner){
         this.owner = owner
     };
+    
+    ships = {};
+    missedShots = [];
 
-    create(){
+    createGameboard(){
         const gb = [[],[],[],[],[],[],[],[],[],[]];
 
         //x axis
@@ -29,16 +32,33 @@ class Gameboard {
     };
 
     placeShip(x, y, gameboard){
-        const ship = new createShip(3, "destroyer");
-        const length = ship.length;
 
-        gameboard[x][y].isPopulated = true;
+        //change hardcode later
+        const newShip = new createShip(3, "destroyer", "DES1");
+        const id = newShip.id;
+        const length = newShip.length;
+
+        gameboard[x][y].isPopulated = newShip.id;
 
         for(let i = 0; i < length; i++){
-        gameboard[x][y + i].isPopulated = true;
+        gameboard[x][y + i].isPopulated = newShip.id;
         };
 
+        this.ships[id] = newShip;
+
         return gameboard;
+    };
+
+    receiveAttack(x, y, gameboard){
+        if(!gameboard[x][y].isPopulated && !gameboard[x][y].isHit){
+            gameboard[x][y].isHit = true;
+            this.missedShots.push(`${x}, ${y}`)
+        };
+
+        if(gameboard[x][y].isPopulated && !gameboard[x][y].isHit){
+            const key = gameboard[x][y].isPopulated;
+            this.ships[key].hits += 1;
+        };
     };
 };
 
