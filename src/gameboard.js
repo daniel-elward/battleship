@@ -14,7 +14,7 @@ class Gameboard {
         this.owner = owner
     };
     
-    ships = {};
+    ships = [];
     missedShots = [];
 
     createGameboard(){
@@ -31,10 +31,9 @@ class Gameboard {
         return gb;
     };
 
-    placeShip(x, y, gameboard){
+    placeShip(x, y, gameboard, size, type, identifier){
 
-        //change hardcode later
-        const newShip = new createShip(3, "destroyer", "DES1");
+        const newShip = new createShip(size, type, identifier);
         const id = newShip.id;
         const length = newShip.length;
 
@@ -58,7 +57,26 @@ class Gameboard {
         if(gameboard[x][y].isPopulated && !gameboard[x][y].isHit){
             const key = gameboard[x][y].isPopulated;
             this.ships[key].hits += 1;
+            this.ships[key].isSunk();
         };
+    };
+
+    allSunk(){
+        let result = false;
+        let counter = 0;
+        const keys = Object.keys(this.ships);
+        
+        for(let i = 0 ; i < keys.length; i++){
+            if(this.ships[keys[i]].sunk === true){
+                counter++
+            };
+        };
+
+        if(counter === keys.length){
+            result = true;
+        };
+        
+        return result;
     };
 };
 

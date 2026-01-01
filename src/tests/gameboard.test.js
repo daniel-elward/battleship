@@ -1,10 +1,21 @@
 const Gameboard = require("../gameboard.js");
 
 const gb = new Gameboard("dan");
+const ships = gb.ships;
 const gbArr = gb.createGameboard();
-const gbPlace = gb.placeShip(2, 2, gbArr);
-const hits = gb.receiveAttack(1, 1, gbArr)
-const hits2 = gb.receiveAttack(2, 2, gbArr)
+const gbPlace = gb.placeShip(2, 2, gbArr, 3, "destroyer", "DES1");
+const gbPlace2 = gb.placeShip(4, 4, gbArr, 2, "frigate", "FRIG1");
+
+const hits = gb.receiveAttack(1, 1, gbArr);
+const hits2 = gb.receiveAttack(2, 2, gbArr);
+const hits3 = gb.receiveAttack(2, 3, gbArr);
+const hits4 = gb.receiveAttack(2, 4, gbArr);
+
+const hits5 = gb.receiveAttack(4, 4, gbArr);
+const hits6 = gb.receiveAttack(4, 5, gbArr);
+
+const allSunk = gb.allSunk();
+
 
 test("confirm grid creation", () => {
     expect(gbArr).toHaveLength(10);
@@ -37,5 +48,9 @@ test("log misses in an array", () => {
 });
 
 test("direct hit increments ship 'hit' value", () => {
-    expect(gb.ships.DES1.hits).toEqual(1);
+    expect(gb.ships.DES1.hits).toEqual(3);
+});
+
+test("check if all ships are 'sunk'", () => {
+    expect(allSunk).toBeTruthy();
 });
