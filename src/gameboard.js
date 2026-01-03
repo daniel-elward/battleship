@@ -4,6 +4,7 @@ class Node {
     constructor(x, y){
         this.x = x;
         this.y = y;
+        this.xy = `X is ${x}, Y is ${y}`;
         this.isHit = false;
         this.isPopulated = false;
     };

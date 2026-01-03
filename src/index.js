@@ -1,6 +1,7 @@
 import "./style.css";
 import Player from "./player";
 import Gameboard from "./gameboard";
+import generateGrid from "./dom";
 
 const gb = new Gameboard("dan")
 const pOne = new Player("dan", gb);
@@ -14,6 +15,14 @@ gb.placeShip(1, 8, gb.grid, 2, "destroyer", "DES1")
 
 gb.receiveAttack(2, 2, gb.grid) //testing
 gb.receiveAttack(1, 1, gb.grid) //testing
+
+// displayGrid();
+
+for(let i = 0; i < 10; i++){
+    for(let j = 0; j < 10; j++){
+        generateGrid(gb.grid[i][j].xy)
+    };
+};
 
 console.log(gb)
 console.log(pOne)
