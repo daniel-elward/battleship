@@ -16,7 +16,7 @@ class Gameboard {
     
     ships = [];
     missedShots = [];
-    gb = [[],[],[],[],[],[],[],[],[],[]];
+    grid = [[],[],[],[],[],[],[],[],[],[]];
 
     createGameboard(){
 
@@ -24,11 +24,11 @@ class Gameboard {
         for(let x = 0; x < 10; x++){ 
             //y axis
             for(let y = 0; y < 10; y++){ 
-                this.gb[[x],[y]].push(new Node(x, y));
+                this.grid[[x],[y]].push(new Node(x, y));
             };
         };
 
-        return this.gb;
+        return this.grid;
     };
 
     placeShip(x, y, gameboard, size, type, identifier){

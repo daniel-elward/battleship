@@ -6,11 +6,14 @@ const gb = new Gameboard("dan")
 const pOne = new Player("dan", gb);
 
 gb.createGameboard();
-gb.placeShip(2, 2, gb.gb, 5, "carrier", "CAR1")
-gb.placeShip(4, 1, gb.gb, 4, "battleship", "BAT1")
-gb.placeShip(6, 5, gb.gb, 3, "cruiser", "CRU1")
-gb.placeShip(7, 7, gb.gb, 3, "submarine", "SUB1")
-gb.placeShip(1, 8, gb.gb, 2, "destroyer", "DES1")
+gb.placeShip(2, 2, gb.grid, 5, "carrier", "CAR1")
+gb.placeShip(4, 1, gb.grid, 4, "battleship", "BAT1")
+gb.placeShip(6, 5, gb.grid, 3, "cruiser", "CRU1")
+gb.placeShip(7, 7, gb.grid, 3, "submarine", "SUB1")
+gb.placeShip(1, 8, gb.grid, 2, "destroyer", "DES1")
+
+gb.receiveAttack(2, 2, gb.grid) //testing
+gb.receiveAttack(1, 1, gb.grid) //testing
 
 console.log(gb)
 console.log(pOne)

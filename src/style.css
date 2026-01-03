@@ -1,0 +1,25 @@
+.wrapper{
+    width: 90%;
+    height: 100vh;
+    margin: 0 auto;
+
+    border:2px solid red;
+}
+
+.title {
+    width: 100%;
+
+    border:2px solid red;
+}
+
+.controlPanel {
+    width: 100%;
+
+    border:2px solid red;
+}
+
+.gameboard {
+    width: 100%;
+
+    border:2px solid red;
+}
