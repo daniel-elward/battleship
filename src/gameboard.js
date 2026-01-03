@@ -16,19 +16,19 @@ class Gameboard {
     
     ships = [];
     missedShots = [];
+    gb = [[],[],[],[],[],[],[],[],[],[]];
 
     createGameboard(){
-        const gb = [[],[],[],[],[],[],[],[],[],[]];
 
         //x axis
         for(let x = 0; x < 10; x++){ 
             //y axis
             for(let y = 0; y < 10; y++){ 
-                gb[[x],[y]].push(new Node(x, y));
+                this.gb[[x],[y]].push(new Node(x, y));
             };
         };
 
-        return gb;
+        return this.gb;
     };
 
     placeShip(x, y, gameboard, size, type, identifier){

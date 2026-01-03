@@ -19,3 +19,14 @@ class CreateShip {
 };
 
 module.exports = CreateShip;
+
+/*
+SHIP DETAILS
+
+  name      size
+Carrier:      5
+Battleship:   4
+Cruiser:      3
+Submarine:    3
+Destroyer:    2
+*/
