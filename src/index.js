@@ -2,7 +2,6 @@ import "./style.css";
 import Player from "./player";
 import Gameboard from "./gameboard";
 import displayGrid from "./dom";
-import { electron } from "webpack";
 
 // ---------- Player One
 const pOneBoard = new Gameboard("dan")
