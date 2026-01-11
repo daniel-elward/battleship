@@ -1,30 +1,43 @@
 import "./style.css";
 import Player from "./player";
 import Gameboard from "./gameboard";
-import generateGrid from "./dom";
+import displayGrid from "./dom";
+import { electron } from "webpack";
 
-const gb = new Gameboard("dan")
-const pOne = new Player("dan", gb);
+// ---------- Player One
+const pOneBoard = new Gameboard("dan")
+const pOne = new Player("dan", pOneBoard);
 
-gb.createGameboard();
-gb.placeShip(2, 2, gb.grid, 5, "carrier", "CAR1")
-gb.placeShip(4, 1, gb.grid, 4, "battleship", "BAT1")
-gb.placeShip(6, 5, gb.grid, 3, "cruiser", "CRU1")
-gb.placeShip(7, 7, gb.grid, 3, "submarine", "SUB1")
-gb.placeShip(1, 8, gb.grid, 2, "destroyer", "DES1")
+pOneBoard.createGameboard();
+pOneBoard.placeShip(2, 2, pOneBoard.grid, 5, "carrier", "CAR1")
+pOneBoard.placeShip(4, 1, pOneBoard.grid, 4, "battleship", "BAT1")
+pOneBoard.placeShip(6, 5, pOneBoard.grid, 3, "cruiser", "CRU1")
+pOneBoard.placeShip(7, 7, pOneBoard.grid, 3, "submarine", "SUB1")
+pOneBoard.placeShip(1, 8, pOneBoard.grid, 2, "destroyer", "DES1")
 
-gb.receiveAttack(2, 2, gb.grid) //testing
-gb.receiveAttack(1, 1, gb.grid) //testing
+pOneBoard.receiveAttack(2, 2, pOneBoard.grid) //testing
+pOneBoard.receiveAttack(1, 1, pOneBoard.grid) //testing
 
-// displayGrid();
+//displays the game board
+displayGrid(pOneBoard, "pOneGameboard");
 
-for(let i = 0; i < 10; i++){
-    for(let j = 0; j < 10; j++){
-        generateGrid(gb.grid[i][j].xy)
-    };
-};
+console.log(pOneBoard)
 
-console.log(gb)
-console.log(pOne)
+// ---------- Player Two
+const pTwoBoard = new Gameboard("nad");
+const pTwo = new Player("nad", pTwoBoard);
 
-   // placeShip(x, y, gameboard, size, type, identifier)
+pTwoBoard.createGameboard();
+pTwoBoard.placeShip(1, 5, pTwoBoard.grid, 5, "carrier", "CAR1")
+pTwoBoard.placeShip(6, 5, pTwoBoard.grid, 4, "battleship", "BAT1")
+pTwoBoard.placeShip(3, 4, pTwoBoard.grid, 3, "cruiser", "CRU1")
+pTwoBoard.placeShip(2, 4, pTwoBoard.grid, 3, "submarine", "SUB1")
+pTwoBoard.placeShip(5, 4, pTwoBoard.grid, 2, "destroyer", "DES1")
+
+pTwoBoard.receiveAttack(1, 0, pTwoBoard.grid) //testing
+
+//displays the game board
+displayGrid(pTwoBoard, "pTwoGameboard");
+
+console.log(pTwoBoard)
+

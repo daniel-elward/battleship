@@ -4,33 +4,41 @@ body {
 }
 
 .wrapper{
-    width: 90%;
-    height: 100vh;
+    width: 95%;
     margin: 0 auto;
 
     border:2px solid red;
 }
 
 .title {
-    width: 100%;
 
     border:2px solid red;
+    margin: 20px;
 }
 
 .controlPanel {
-    width: 100%;
-
     border:2px solid red;
+    margin: 20px;
 }
 
-.gameboard {
-    width: 100%;
+.pOneGameboard {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
 
     border:2px solid red;
+    margin: 20px;
 }
+
+.pTwoGameboard {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+
+    border:2px solid red;
+    margin: 20px;
+}
+
 
 .gridCell {
     min-width: 20px;
