@@ -17,10 +17,10 @@ class Gameboard {
     
     ships = [];
     missedShots = [];
+    hits = [];
     grid = [[],[],[],[],[],[],[],[],[],[]];
 
     createGameboard(){
-
         //x axis
         for(let x = 0; x < 10; x++){ 
             //y axis
@@ -33,7 +33,6 @@ class Gameboard {
     };
 
     placeShip(x, y, gameboard, size, type, identifier){
-
         const newShip = new createShip(size, type, identifier);
         const id = newShip.id;
         const length = newShip.length;
@@ -50,14 +49,22 @@ class Gameboard {
     };
 
     receiveAttack(x, y, gameboard){
+        if(gameboard[x][y].isHit){
+            return console.error("cell already hit");
+        };
+
         if(!gameboard[x][y].isPopulated && !gameboard[x][y].isHit){
             gameboard[x][y].isHit = true;
-            this.missedShots.push(`${x}, ${y}`)
+            const array = new Array(x, y);
+            this.missedShots.push(array);
         };
 
         if(gameboard[x][y].isPopulated && !gameboard[x][y].isHit){
             const key = gameboard[x][y].isPopulated;
+            const array = new Array(x, y);
+            this.hits.push(array);
             this.ships[key].hits += 1;
+            gameboard[x][y].isHit = true;
             this.ships[key].isSunk();
         };
     };
