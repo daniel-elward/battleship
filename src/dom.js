@@ -1,14 +1,7 @@
-function gridContainer(containerName){
-    const wrapper = document.querySelector(".wrapper");
-    const container = document.createElement("div");
-    container.classList.add(containerName);
-    wrapper.appendChild(container);
-};
-
-function generateGrid(cellContent, containerName, xValue, yValue){
+function generateGrid(cellContent, xValue, yValue){
     const div = document.createElement("div");
     const text = document.createTextNode(cellContent);
-    const target = document.querySelector(`.${containerName}`)
+    const target = document.querySelector(".boardDisplay");
 
     div.classList.add("gridCell");
     div.dataset.x = xValue;
@@ -18,15 +11,33 @@ function generateGrid(cellContent, containerName, xValue, yValue){
     target.appendChild(div);
 };
 
-function displayGrid(board, targetContainer){
-    gridContainer(targetContainer);
-    displayMessage(`displaying ${board.owner}'s gameboard`, targetContainer);
-
+function displayGrid(board){
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
-            generateGrid(board.grid[i][j].isPopulated, targetContainer, i, j);
+            generateGrid(board.grid[i][j].isPopulated, i, j);
         };
     };
+
+    function completeTurn(xCoord, yCoord, board){
+        board.receiveAttack(xCoord, yCoord, board.grid);
+        markCell(board);
+        switchPlayer(pOne, pTwo);
+    };
+
+    let x = null;
+    let y = null;
+    
+    const cell = document.getElementsByClassName("gridCell");
+    
+    for(let i = 0; i < cell.length; i++){
+        cell[i].addEventListener("click", (element) => {
+            x = element.target.dataset.x;
+            y = element.target.dataset.y;
+            completeTurn(x, y, board);
+        });
+    };
+
+
     markCell(board);
 };
 
@@ -57,20 +68,32 @@ function displayActivePlayer(player){
     target.appendChild(h1);
 };
 
-function displayMessage(message, parent){
+function displayMessage(message, parent, className){
     const target = document.querySelector(`.${parent}`)
     const p = document.createElement("p");
     const text = document.createTextNode(message);
 
+    p.classList.add(className)
     p.appendChild(text);
     target.appendChild(p);
 };
 
-function refreshBoard(foo, barr){
-    const element = document.querySelector(`.${barr}`);
-    element.remove();
-    // console.log(element)
-    displayGrid(foo, barr);
+function updateText(text, target){
+    const element = document.querySelector(`.${target}`);
+
+    element.innerHTML = text;
 };
 
-module.exports = {displayGrid, displayActivePlayer, displayMessage, refreshBoard, markCell};
+function refreshDisplay(current, board, target){
+    const oldGrid = document.querySelector(`.${current}`);
+    oldGrid.remove();
+
+    displayGrid(board, target);
+
+    // displayActivePlayer(`current player is ${activePlayer.name}`);
+    // displayGrid(activeBoard, "pTwoGameboard");
+    // clickListener();
+};
+
+module.exports = {displayGrid, displayActivePlayer, displayMessage, 
+                  markCell, refreshDisplay, updateText};

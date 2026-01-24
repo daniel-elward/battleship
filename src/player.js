@@ -1,14 +1,21 @@
 class Player{
-    constructor(name, Gameboard){
+    constructor(name, Gameboard, gameboardID){
         this.name = name;
         this.Gameboard = Gameboard;
+        this.gameboardID = gameboardID;
     };
 };
 
-function SwitchPlayer(p1, p2, activePlayer){
-    const current = activePlayer;
+//switch active player and active board
+function switchPlayer(p1, p2){
+    activePlayer === p1 ? activePlayer = p2 : activePlayer = p1;
+    activeBoard === pTwoBoard ? activeBoard = pOneBoard : activeBoard = pTwoBoard;
 
-    return activePlayer === p1 ? activePlayer = p2 : activePlayer = p1;
+    updateText(`the current player is ${activePlayer.name}`, "activePlayer")
+    updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
+    
+    return [activePlayer, activeBoard];
 };
 
-module.exports = Player, SwitchPlayer;
+module.exports = Player;
+

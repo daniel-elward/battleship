@@ -21,6 +21,15 @@ body {
     margin: 20px;
 }
 
+.boardDisplay {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+
+    border:2px solid red;
+    margin: 20px;    
+}
+
 .pOneGameboard {
     display: grid;
     grid-template-columns: repeat(10, 1fr);

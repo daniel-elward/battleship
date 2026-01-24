@@ -11,8 +11,9 @@ class Node {
 };
 
 class Gameboard {
-    constructor(owner){
+    constructor(owner, gameboardID){
         this.owner = owner
+        this.gameboardID = gameboardID;
     };
     
     ships = [];
