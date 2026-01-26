@@ -11,7 +11,7 @@ function generateGrid(cellContent, xValue, yValue){
     target.appendChild(div);
 };
 
-function displayGrid(board){
+function displayGrid(board, p1, p2){
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
             generateGrid(board.grid[i][j].isPopulated, i, j);
@@ -21,7 +21,7 @@ function displayGrid(board){
     function completeTurn(xCoord, yCoord, board){
         board.receiveAttack(xCoord, yCoord, board.grid);
         markCell(board);
-        switchPlayer(pOne, pTwo);
+        switchPlayer(p1, p2);
     };
 
     let x = null;
