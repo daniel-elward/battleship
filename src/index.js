@@ -1,7 +1,7 @@
 import "./style.css";
 import Player from "./player";
 import Gameboard from "./gameboard";
-import {displayGrid, displayActivePlayer, displayMessage, markCell, refreshDisplay, updateText} from "./dom";
+import {displayGrid, updateText, markCells} from "./dom";
 
 // ---------- Player One
 const pOneBoard = new Gameboard("dan", "pOneGameboard")
@@ -13,11 +13,6 @@ pOneBoard.placeShip(4, 1, pOneBoard.grid, 4, "battleship", "BAT1");
 pOneBoard.placeShip(6, 5, pOneBoard.grid, 3, "cruiser", "CRU1");
 pOneBoard.placeShip(7, 7, pOneBoard.grid, 3, "submarine", "SUB1");
 pOneBoard.placeShip(0, 0, pOneBoard.grid, 2, "destroyer", "DES1");
-
-//displays the game board
-// displayGrid(pOneBoard, "pOneGameboard");
-
-// console.log(pOneBoard);
 
 // ---------- Player Two
 const pTwoBoard = new Gameboard("nad", "pTwoGameboard");
@@ -37,53 +32,51 @@ pTwoBoard.receiveAttack(1, 0, pTwoBoard.grid);
 pTwoBoard.receiveAttack(1, 1, pTwoBoard.grid);
 pTwoBoard.receiveAttack(0, 1, pTwoBoard.grid);
 
-//displays the game board
-// displayGrid(pTwoBoard, "pTwoGameboard");
-
-// console.log(pTwoBoard);
-
-// ------------ 
-
 /*
 WORKING ON PLAYER SWITCHING AND RE-RENDERING THE CURRENT GAMEBOARD
 */
+
+//switch active player and active board
+function switchPlayer(player, p1, p2){
+    player === p1 ? player = p2 : player = p1;
+    activeBoard === pTwoBoard ? activeBoard = pOneBoard : activeBoard = pTwoBoard;
+
+    updateText(`the current player is ${activePlayer.name}`, "activePlayer")
+    updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
+    
+    return [activePlayer, activeBoard];
+};
+
+function completeTurn(player, xCoord, yCoord, board){
+    board.receiveAttack(xCoord, yCoord, board.grid);
+    markCells(board);
+    switchPlayer(player, pOne, pTwo);
+};
 
 
 function gameController(){
     let activePlayer = pOne;
     let activeBoard = pTwoBoard;
-    
-    // function completeTurn(xCoord, yCoord, board){
-    //     console.log(activePlayer)
-    //     console.log(activeBoard)
-    //     board.receiveAttack(xCoord, yCoord, board.grid);
-    //     markCell(board);
-    //     SwitchPlayer(pOne, pTwo);
-    // };
-    
-    // function clickListener(){
-    //     let x = null;
-    //     let y = null;
-        
-    //     const cell = document.getElementsByClassName("gridCell");
-        
-    //     for(let i = 0; i < cell.length; i++){
-    //         cell[i].addEventListener("click", (element) => {
-    //             x = element.target.dataset.x;
-    //             y = element.target.dataset.y;
-                
-    //             completeTurn(x, y, activeBoard);
-    //             // refreshDisplay();
-    //         });
-    //     };
-    // };
+
 
     updateText(`the current player is ${activePlayer.name}`, "activePlayer")
     updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
-    displayGrid(activeBoard, pOne, pTwo);
-    // clickListener();
 
-
+    displayGrid(activeBoard);
 };
 
 gameController();
+
+/*
+TEMP STORAGE
+
+function completeTurn(xCoord, yCoord, board){
+    board.receiveAttack(xCoord, yCoord, board.grid);
+    markCell(board);
+    switchPlayer(p1, p2);
+};
+
+
+
+
+*/

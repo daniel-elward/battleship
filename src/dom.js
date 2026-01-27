@@ -1,3 +1,34 @@
+//renders grid to DOM and assigns event listeners to the cells
+function displayGrid(board){
+    let x = null;
+    let y = null;
+    
+    const cell = document.getElementsByClassName("gridCell");
+
+    for(let i = 0; i < 10; i++){
+        for(let j = 0; j < 10; j++){
+            generateGrid(board.grid[i][j].isPopulated, i, j);
+        };
+    };
+    
+    for(let i = 0; i < cell.length; i++){
+        cell[i].addEventListener("click", (element) => {
+            x = element.target.dataset.x;
+            y = element.target.dataset.y;
+
+            // player clicks and invalid clicks need to be registered here 
+            // but the processing of hits/misses should not be processed here. 
+            // this data should be passed somewhere in index 
+            // to be processed as it is not DOM related.
+
+            // completeTurn(x, y, board);
+        });
+    };
+
+    markCells(board);
+};
+
+//generate the cells of the grid and assign their x/y values
 function generateGrid(cellContent, xValue, yValue){
     const div = document.createElement("div");
     const text = document.createTextNode(cellContent);
@@ -11,38 +42,8 @@ function generateGrid(cellContent, xValue, yValue){
     target.appendChild(div);
 };
 
-function displayGrid(board, p1, p2){
-    for(let i = 0; i < 10; i++){
-        for(let j = 0; j < 10; j++){
-            generateGrid(board.grid[i][j].isPopulated, i, j);
-        };
-    };
-
-    function completeTurn(xCoord, yCoord, board){
-        board.receiveAttack(xCoord, yCoord, board.grid);
-        markCell(board);
-        switchPlayer(p1, p2);
-    };
-
-    let x = null;
-    let y = null;
-    
-    const cell = document.getElementsByClassName("gridCell");
-    
-    for(let i = 0; i < cell.length; i++){
-        cell[i].addEventListener("click", (element) => {
-            x = element.target.dataset.x;
-            y = element.target.dataset.y;
-            completeTurn(x, y, board);
-        });
-    };
-
-
-    markCell(board);
-};
-
-function markCell(board){
-    //set missed class to relevent cells
+//applies required css to each cell i.e hit, miss etc
+function markCells(board){
     board.missedShots.forEach(element => {
         const coords = `${element[0]}${element[1]}`;
         const div = document.querySelector(`[data-xy="${coords}"]`);
@@ -59,41 +60,11 @@ function markCell(board){
     });
 };
 
-function displayActivePlayer(player){
-    const target = document.querySelector(".controlPanel")
-    const h1 = document.createElement("h1");
-    const headerText = document.createTextNode(player);
-
-    h1.appendChild(headerText);
-    target.appendChild(h1);
-};
-
-function displayMessage(message, parent, className){
-    const target = document.querySelector(`.${parent}`)
-    const p = document.createElement("p");
-    const text = document.createTextNode(message);
-
-    p.classList.add(className)
-    p.appendChild(text);
-    target.appendChild(p);
-};
-
+//displays a messages in the DOM
 function updateText(text, target){
     const element = document.querySelector(`.${target}`);
 
     element.innerHTML = text;
 };
 
-function refreshDisplay(current, board, target){
-    const oldGrid = document.querySelector(`.${current}`);
-    oldGrid.remove();
-
-    displayGrid(board, target);
-
-    // displayActivePlayer(`current player is ${activePlayer.name}`);
-    // displayGrid(activeBoard, "pTwoGameboard");
-    // clickListener();
-};
-
-module.exports = {displayGrid, displayActivePlayer, displayMessage, 
-                  markCell, refreshDisplay, updateText};
+module.exports = {displayGrid, updateText, markCells};
