@@ -1,7 +1,7 @@
 import "./style.css";
 import Player from "./player";
 import Gameboard from "./gameboard";
-import {displayGrid, updateText, markCells} from "./dom";
+import {displayGrid, updateText, markCells, setEventListeners, clickData} from "./dom";
 
 // ---------- Player One
 const pOneBoard = new Gameboard("dan", "pOneGameboard")
@@ -32,6 +32,8 @@ pTwoBoard.receiveAttack(1, 0, pTwoBoard.grid);
 pTwoBoard.receiveAttack(1, 1, pTwoBoard.grid);
 pTwoBoard.receiveAttack(0, 1, pTwoBoard.grid);
 
+console.log(pTwoBoard)
+
 /*
 WORKING ON PLAYER SWITCHING AND RE-RENDERING THE CURRENT GAMEBOARD
 */
@@ -47,7 +49,7 @@ function switchPlayer(player, p1, p2){
     return [activePlayer, activeBoard];
 };
 
-function completeTurn(player, xCoord, yCoord, board){
+function processSelection(player, xCoord, yCoord, board){
     board.receiveAttack(xCoord, yCoord, board.grid);
     markCells(board);
     switchPlayer(player, pOne, pTwo);
@@ -57,12 +59,52 @@ function completeTurn(player, xCoord, yCoord, board){
 function gameController(){
     let activePlayer = pOne;
     let activeBoard = pTwoBoard;
+    
+    //check and process the users click. hit, miss, invalid, etc
+    function eventHandler(data){
+        const x = data.x;
+        const y = data.y;
 
+        //invalid: not populated, already hit.
+        if(activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated === false){
+            console.log("not populated already hit!")
+        };
+        
+        //invalid: populated, already hit.
+        if(activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated != false){
+            console.log("populated already hit!")
+        };
 
-    updateText(`the current player is ${activePlayer.name}`, "activePlayer")
-    updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
+        //valid: not populated, not yet hit.
+        if(!activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated === false){
+            console.log("not populated and not yet hit!")
+            console.log("Here we need to add to the missed shots array")
+        };
 
-    displayGrid(activeBoard);
+        //valid: populated, not yet hit.
+        if(!activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated != false){
+            console.log("populated and not yet hit!")
+            console.log("Here we need to add to the hits array")
+            console.log("We also need to add to the required ships hit counter")
+        };
+    };
+    
+    
+    function startGame(){
+        if(activeBoard.allSunk()){
+            return alert(`All of ${activeBoard.owner}'s ships have been sunk. Well done ${activePlayer.name}`);
+        };
+
+        updateText(`the current player is ${activePlayer.name}`, "activePlayer")
+        updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
+        
+        displayGrid(activeBoard);
+
+        //callback to handle the returned ser click
+        setEventListeners(eventHandler);
+    };
+
+    startGame();
 };
 
 gameController();

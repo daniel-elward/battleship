@@ -1,31 +1,29 @@
 //renders grid to DOM and assigns event listeners to the cells
 function displayGrid(board){
-    let x = null;
-    let y = null;
-    
-    const cell = document.getElementsByClassName("gridCell");
-
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
             generateGrid(board.grid[i][j].isPopulated, i, j);
         };
     };
     
+    markCells(board);
+};
+
+function setEventListeners(handler){
+    let clickData = {};
+    const cell = document.getElementsByClassName("gridCell");
+
+
     for(let i = 0; i < cell.length; i++){
         cell[i].addEventListener("click", (element) => {
-            x = element.target.dataset.x;
-            y = element.target.dataset.y;
+            clickData = {
+                x: element.target.dataset.x, 
+                y: element.target.dataset.y
+            }
 
-            // player clicks and invalid clicks need to be registered here 
-            // but the processing of hits/misses should not be processed here. 
-            // this data should be passed somewhere in index 
-            // to be processed as it is not DOM related.
-
-            // completeTurn(x, y, board);
+            handler(clickData);
         });
-    };
-
-    markCells(board);
+    };  
 };
 
 //generate the cells of the grid and assign their x/y values
@@ -67,4 +65,4 @@ function updateText(text, target){
     element.innerHTML = text;
 };
 
-module.exports = {displayGrid, updateText, markCells};
+module.exports = {displayGrid, updateText, markCells, setEventListeners};
