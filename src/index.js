@@ -1,7 +1,7 @@
 import "./style.css";
 import Player from "./player";
 import Gameboard from "./gameboard";
-import {displayGrid, updateText, markCells, setEventListeners, clickData} from "./dom";
+import {displayGrid, updateText, setEventListeners} from "./dom";
 
 // ---------- Player One
 const pOneBoard = new Gameboard("dan", "pOneGameboard")
@@ -25,13 +25,6 @@ pTwoBoard.placeShip(3, 4, pTwoBoard.grid, 3, "cruiser", "CRU1");
 pTwoBoard.placeShip(2, 4, pTwoBoard.grid, 3, "submarine", "SUB1");
 pTwoBoard.placeShip(1, 0, pTwoBoard.grid, 2, "destroyer", "DES1");
 
-// pTwoBoard.receiveAttack(4, 2, pTwoBoard.grid);
-// pTwoBoard.receiveAttack(1, 5, pTwoBoard.grid);
-// pTwoBoard.receiveAttack(5, 5, pTwoBoard.grid);
-// pTwoBoard.receiveAttack(1, 0, pTwoBoard.grid);
-// pTwoBoard.receiveAttack(1, 1, pTwoBoard.grid);
-// pTwoBoard.receiveAttack(0, 1, pTwoBoard.grid);
-
 function gameController(){
     let activePlayer = pOne;
     let activeBoard = pTwoBoard;
@@ -39,7 +32,7 @@ function gameController(){
     console.log(activePlayer.name)
     
     //switch active player and active board
-    function switchPlayer(player, p1, p2){
+    function switchPlayer(p1, p2){
         activePlayer === p1 ? activePlayer = p2 : activePlayer = p1;
         activeBoard === pTwoBoard ? activeBoard = pOneBoard : activeBoard = pTwoBoard;
     
@@ -70,8 +63,7 @@ function gameController(){
             console.log("Here we need to add to the missed shots array");
 
             activeBoard.receiveAttack(x, y, activeBoard.grid)
-            // markCells(activeBoard)
-            switchPlayer(activePlayer, pOne, pTwo);
+            switchPlayer(pOne, pTwo);
             displayGrid(activeBoard);
             setEventListeners(eventHandler);
             checkAllSunk();
@@ -85,7 +77,6 @@ function gameController(){
             console.log("We also need to add to the required ships hit counter");
 
             activeBoard.receiveAttack(x, y, activeBoard.grid)
-            // markCells(activeBoard)
             displayGrid(activeBoard);
             setEventListeners(eventHandler);
             checkAllSunk();
