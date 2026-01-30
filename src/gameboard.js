@@ -54,12 +54,14 @@ class Gameboard {
             return console.error("cell already hit");
         };
 
+        //cell not populated, not previously hit
         if(!gameboard[x][y].isPopulated && !gameboard[x][y].isHit){
             gameboard[x][y].isHit = true;
             const array = new Array(x, y);
             this.missedShots.push(array);
         };
 
+        //cell is populated, not previously hit
         if(gameboard[x][y].isPopulated && !gameboard[x][y].isHit){
             const key = gameboard[x][y].isPopulated;
             const array = new Array(x, y);

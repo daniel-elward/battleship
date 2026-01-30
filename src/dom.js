@@ -1,5 +1,7 @@
 //renders grid to DOM and assigns event listeners to the cells
 function displayGrid(board){
+    cleanDom();
+        
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
             generateGrid(board.grid[i][j].isPopulated, i, j);
@@ -7,6 +9,15 @@ function displayGrid(board){
     };
     
     markCells(board);
+};
+
+
+function cleanDom(){
+    const cells = document.querySelectorAll(".gridCell");
+
+    cells.forEach((element) => {
+        element.remove();
+    });
 };
 
 function setEventListeners(handler){

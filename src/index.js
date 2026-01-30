@@ -25,41 +25,30 @@ pTwoBoard.placeShip(3, 4, pTwoBoard.grid, 3, "cruiser", "CRU1");
 pTwoBoard.placeShip(2, 4, pTwoBoard.grid, 3, "submarine", "SUB1");
 pTwoBoard.placeShip(1, 0, pTwoBoard.grid, 2, "destroyer", "DES1");
 
-pTwoBoard.receiveAttack(4, 2, pTwoBoard.grid);
-pTwoBoard.receiveAttack(1, 5, pTwoBoard.grid);
-pTwoBoard.receiveAttack(5, 5, pTwoBoard.grid);
-pTwoBoard.receiveAttack(1, 0, pTwoBoard.grid);
-pTwoBoard.receiveAttack(1, 1, pTwoBoard.grid);
-pTwoBoard.receiveAttack(0, 1, pTwoBoard.grid);
-
-console.log(pTwoBoard)
-
-/*
-WORKING ON PLAYER SWITCHING AND RE-RENDERING THE CURRENT GAMEBOARD
-*/
-
-//switch active player and active board
-function switchPlayer(player, p1, p2){
-    player === p1 ? player = p2 : player = p1;
-    activeBoard === pTwoBoard ? activeBoard = pOneBoard : activeBoard = pTwoBoard;
-
-    updateText(`the current player is ${activePlayer.name}`, "activePlayer")
-    updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
-    
-    return [activePlayer, activeBoard];
-};
-
-function processSelection(player, xCoord, yCoord, board){
-    board.receiveAttack(xCoord, yCoord, board.grid);
-    markCells(board);
-    switchPlayer(player, pOne, pTwo);
-};
-
+// pTwoBoard.receiveAttack(4, 2, pTwoBoard.grid);
+// pTwoBoard.receiveAttack(1, 5, pTwoBoard.grid);
+// pTwoBoard.receiveAttack(5, 5, pTwoBoard.grid);
+// pTwoBoard.receiveAttack(1, 0, pTwoBoard.grid);
+// pTwoBoard.receiveAttack(1, 1, pTwoBoard.grid);
+// pTwoBoard.receiveAttack(0, 1, pTwoBoard.grid);
 
 function gameController(){
     let activePlayer = pOne;
     let activeBoard = pTwoBoard;
+
+    console.log(activePlayer.name)
     
+    //switch active player and active board
+    function switchPlayer(player, p1, p2){
+        activePlayer === p1 ? activePlayer = p2 : activePlayer = p1;
+        activeBoard === pTwoBoard ? activeBoard = pOneBoard : activeBoard = pTwoBoard;
+    
+        updateText(`the current player is ${activePlayer.name}`, "activePlayer")
+        updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
+        
+        return [activePlayer, activeBoard];
+    };
+
     //check and process the users click. hit, miss, invalid, etc
     function eventHandler(data){
         const x = data.x;
@@ -67,33 +56,50 @@ function gameController(){
 
         //invalid: not populated, already hit.
         if(activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated === false){
-            console.log("not populated already hit!")
+            alert("invalid! already hit!");
         };
         
         //invalid: populated, already hit.
         if(activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated != false){
-            console.log("populated already hit!")
+            alert("invalid! already hit!");
         };
 
         //valid: not populated, not yet hit.
         if(!activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated === false){
-            console.log("not populated and not yet hit!")
-            console.log("Here we need to add to the missed shots array")
+            console.log("not populated and not yet hit!");
+            console.log("Here we need to add to the missed shots array");
+
+            activeBoard.receiveAttack(x, y, activeBoard.grid)
+            // markCells(activeBoard)
+            switchPlayer(activePlayer, pOne, pTwo);
+            displayGrid(activeBoard);
+            setEventListeners(eventHandler);
+            checkAllSunk();
+            return
         };
 
         //valid: populated, not yet hit.
         if(!activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated != false){
-            console.log("populated and not yet hit!")
-            console.log("Here we need to add to the hits array")
-            console.log("We also need to add to the required ships hit counter")
+            console.log("populated and not yet hit!");
+            console.log("Here we need to add to the hits array");
+            console.log("We also need to add to the required ships hit counter");
+
+            activeBoard.receiveAttack(x, y, activeBoard.grid)
+            // markCells(activeBoard)
+            displayGrid(activeBoard);
+            setEventListeners(eventHandler);
+            checkAllSunk();
+            return
         };
-    };
+    }; 
     
-    
-    function startGame(){
+    function checkAllSunk(){
         if(activeBoard.allSunk()){
             return alert(`All of ${activeBoard.owner}'s ships have been sunk. Well done ${activePlayer.name}`);
         };
+    };
+    
+    function startGame(){
 
         updateText(`the current player is ${activePlayer.name}`, "activePlayer")
         updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
@@ -108,17 +114,3 @@ function gameController(){
 };
 
 gameController();
-
-/*
-TEMP STORAGE
-
-function completeTurn(xCoord, yCoord, board){
-    board.receiveAttack(xCoord, yCoord, board.grid);
-    markCell(board);
-    switchPlayer(p1, p2);
-};
-
-
-
-
-*/
