@@ -30,6 +30,15 @@ body {
     margin: 20px;    
 }
 
+.secondBoardDisplay {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+
+    border:2px solid red;
+    margin: 20px;    
+}
+
 .pOneGameboard {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -63,6 +72,14 @@ body {
     min-height: 20px;
     height: 50px;
     border: 1px solid blue;
+}
+
+.gridCellTEMP {
+    min-width: 20px;
+    width: 50px;
+    min-height: 20px;
+    height: 50px;
+    border: 1px solid rgb(0, 255, 34);
 }
 
 .emptyHit{

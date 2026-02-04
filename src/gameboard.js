@@ -11,9 +11,10 @@ class Node {
 };
 
 class Gameboard {
-    constructor(owner, gameboardID){
+    constructor(owner, gameboardID, display){
         this.owner = owner
         this.gameboardID = gameboardID;
+        this.display = display; //used for DOM 
     };
     
     ships = [];
