@@ -94,8 +94,6 @@ function generateGridTEMP(cellContent, xValue, yValue){
 
 //applies required css to each cell i.e hit, miss etc
 function markCells(board){
-    // const foo = document.querySelector(".boardDisplay");
-    // const foo = document.querySelector(".secondBoardDisplay");
     const foo = document.querySelector(`.${board.display}`);
 
     board.missedShots.forEach(element => {

@@ -1,14 +1,12 @@
-import "./style.css";
-import Player from "./player";
-import Gameboard from "./gameboard";
-import {displayGrid, displayGridTEMP, updateText, setEventListeners} from "./dom";
-import aiEasy from "./ai";
+const style = require("./style.css");
+const Player = require("./player.js");
+const Gameboard = require("./gameboard.js");
+const {displayGrid, updateText, setEventListeners} = require("./dom.js");
+const aiEasy = require("./ai.js");
 
 // ---------- Player One
-const pOneBoard = new Gameboard("dan", "pOneGameboard", "secondBoardDisplay")
-const pOne = new Player("dan", pOneBoard, "pOneGameboard");
-
-console.log(pOneBoard)
+const pOneBoard = new Gameboard("Player One", "pOneGameboard", "secondBoardDisplay")
+const pOne = new Player("Player One", pOneBoard, "pOneGameboard");
 
 pOneBoard.createGameboard();
 pOneBoard.placeShip(2, 2, pOneBoard.grid, 5, "carrier", "CAR1");
@@ -39,15 +37,12 @@ function gameController(){
     function switchPlayer(p1, p2){
         activePlayer === p1 ? activePlayer = p2 : activePlayer = p1;
         activeBoard === pTwoBoard ? activeBoard = pOneBoard : activeBoard = pTwoBoard;
-    
-        updateText(`the current player is ${activePlayer.name}`, "activePlayer")
-        updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
-        
         return [activePlayer, activeBoard];
     };
 
-    function aiShotHandler(foo){
-        activeBoard.receiveAttack(foo.x, foo.y, activeBoard.grid)
+    function aiShotHandler(coord){
+        activeBoard.receiveAttack(coord.x, coord.y, activeBoard.grid);
+        updateText(`${pTwo.name}'s last shot was ${coord.x}, ${coord.y}`, "aiLog");
     };
 
     //check and process the users click. hit, miss, invalid, etc
@@ -78,19 +73,20 @@ function gameController(){
 
         //valid: not populated, not yet hit.
         if(!activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated === false){
-            console.log("not populated and not yet hit!");
-            console.log("Here we need to add to the missed shots array");
 
             activeBoard.receiveAttack(x, y, activeBoard.grid)
-
+            
+            updateText(`${pOne.name}'s last shot was ${x}, ${y}`, "playerLog");
             if(ai === true){
-                switchPlayer(pOne, pTwo);
-                aiEasy(aiShotHandler);                
-                switchPlayer(pOne, pTwo);
-                displayGrid(pTwoBoard, pOneBoard);
-                // displayGrid(activeBoard);
+                switchPlayer(pOne, pTwo); //switch to AI
+                const aiShot = aiEasy(aiShotHandler); //make selection 
+
+                switchPlayer(pOne, pTwo); //switch back to player
+                displayGrid(pTwoBoard, pOneBoard); // display
+
                 setEventListeners(eventHandler);
                 checkAllSunk();
+                
                 return
             } else {
                 switchPlayer(pOne, pTwo);
@@ -103,9 +99,6 @@ function gameController(){
 
         //valid: populated, not yet hit.
         if(!activeBoard.grid[x][y].isHit && activeBoard.grid[x][y].isPopulated != false){
-            console.log("populated and not yet hit!");
-            console.log("Here we need to add to the hits array");
-            console.log("We also need to add to the required ships hit counter");
 
             activeBoard.receiveAttack(x, y, activeBoard.grid)
 
@@ -126,6 +119,7 @@ function gameController(){
                 return
             };
         };
+
     }; 
     
     function checkAllSunk(){
@@ -134,12 +128,9 @@ function gameController(){
         };
     };
     
-    function startGame(){
-
-        updateText(`the current player is ${activePlayer.name}`, "activePlayer")
-        updateText(`the current board is ${activeBoard.owner}'s`, "activeBoard")
-        
+    function startGame(){        
         displayGrid(pTwoBoard, pOneBoard);
+
         // displayGrid(activeBoard);
         // displayGridTEMP(pOneBoard); //temp to see AI shots
 
