@@ -8,26 +8,9 @@ const aiEasy = require("./ai.js");
 const pOneBoard = new Gameboard("Player One", "pOneGameboard", "secondBoardDisplay")
 const pOne = new Player("Player One", pOneBoard, "pOneGameboard");
 
-pOneBoard.createGameboard();
-pOneBoard.placeShip(2, 2, pOneBoard.grid, 5, "carrier", "CAR1");
-pOneBoard.placeShip(4, 1, pOneBoard.grid, 4, "battleship", "BAT1");
-pOneBoard.placeShip(6, 5, pOneBoard.grid, 3, "cruiser", "CRU1");
-pOneBoard.placeShip(7, 7, pOneBoard.grid, 3, "submarine", "SUB1");
-pOneBoard.placeShip(0, 0, pOneBoard.grid, 2, "destroyer", "DES1");
-
-// pOneBoard.receiveAttack(1,1, pOneBoard.grid);
-// pOneBoard.receiveAttack(2,2, pOneBoard.grid);
-
 // ---------- Player Two
 const pTwoBoard = new Gameboard("AI - Easy", "pTwoGameboard", "boardDisplay");
 const pTwo = new Player("AI - Easy", pTwoBoard, "pTwoGameboard");
-
-pTwoBoard.createGameboard();
-pTwoBoard.placeShip(1, 5, pTwoBoard.grid, 5, "carrier", "CAR1");
-pTwoBoard.placeShip(6, 5, pTwoBoard.grid, 4, "battleship", "BAT1");
-pTwoBoard.placeShip(3, 4, pTwoBoard.grid, 3, "cruiser", "CRU1");
-pTwoBoard.placeShip(2, 4, pTwoBoard.grid, 3, "submarine", "SUB1");
-pTwoBoard.placeShip(1, 0, pTwoBoard.grid, 2, "destroyer", "DES1");
 
 function gameController(){
     let activePlayer = pOne;
@@ -128,14 +111,125 @@ function gameController(){
         };
     };
     
-    function startGame(){        
-        displayGrid(pTwoBoard, pOneBoard);
+    function startGame(){ 
 
-        // displayGrid(activeBoard);
-        // displayGridTEMP(pOneBoard); //temp to see AI shots
+        const button = document.getElementById("randomise");
 
-        //callback to handle the returned click
-        setEventListeners(eventHandler);
+        button.addEventListener("click", () => {
+
+            //remove random button
+            button.remove();
+
+            //random 0-9 for grid cell
+            function getGridNum(){
+                return Math.floor(Math.random() * 10);
+            };
+
+            //random 0 - 1 for rotation 0 = ver 1 = hor 
+            function getRotateNum(){
+                return Math.floor(Math.random() * 2);
+            };
+
+            //ship details
+            const shipData = {
+                carrier: {
+                    name: "carrier",
+                    id: "CAR1",
+                    size: 5
+                },
+    
+                battleship: {
+                    name: "battleship",
+                    id: "BAT1",
+                    size: 4
+                },
+    
+                cruiser: {
+                    name: "cruiser",
+                    id: "CRU1",
+                    size: 3
+                },
+    
+                submarine: {
+                    name: "submarine",
+                    id: "SUB1",
+                    size: 3
+                },
+    
+                destroyer: {
+                    name: "destroyer",
+                    id: "DES1",
+                    size: 2
+                }
+            };
+            
+            pOneBoard.createGameboard();
+
+           //place human players ships
+           for(let i = 0; i < 5; i++){
+                const ships = Object.entries(shipData)
+    
+                let valid = false;
+
+                while(!valid){
+                    const startX = getGridNum();
+                    const startY = getGridNum();
+                    // -1 because of array indexing of the cells
+                    const endY = (startY + ships[0][1].size) - 1;
+
+                    const coords = [startX, endY];
+                    
+                    if(endY <= 9){
+
+                        if(pOneBoard.grid[startX][startY].isPopulated === false &&
+                           pOneBoard.grid[startX][endY].isPopulated === false){
+                            
+                            pOneBoard.placeShip(startX, startY, pOneBoard.grid, ships[i][1].size, ships[i][1].name, ships[i][1].id);
+
+                            valid = true;
+                        }
+
+                    };
+                };
+            };
+
+
+            pTwoBoard.createGameboard();
+
+            //place ai players ships
+            for(let i = 0; i < 5; i++){
+                const ships = Object.entries(shipData)
+    
+                let valid = false;
+
+                while(!valid){
+                    const startX = getGridNum();
+                    const startY = getGridNum();
+                    // -1 because of array indexing of the cells
+                    const endY = (startY + ships[0][1].size) - 1;
+
+                    const coords = [startX, endY];
+                    
+                    if(endY <= 9){
+
+                        if(pTwoBoard.grid[startX][startY].isPopulated === false &&
+                           pTwoBoard.grid[startX][endY].isPopulated === false){
+                            
+                            pTwoBoard.placeShip(startX, startY, pTwoBoard.grid, ships[i][1].size, ships[i][1].name, ships[i][1].id);
+
+                            valid = true;
+                        }
+                        
+                    };
+                };
+            };
+    
+            displayGrid(pTwoBoard, pOneBoard);
+    
+            //callback to handle the returned click
+            setEventListeners(eventHandler);
+        });
+
     };
 
     startGame();

@@ -17,8 +17,27 @@ body {
 }
 
 .controlPanel {
+    height: 100px;
     border:2px solid red;
     margin: 20px;
+}
+
+.gameWrapper {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid greenyellow;
+}
+
+.gameWrapper h1 {
+    text-align: center;
+}
+
+.boardWrapper {
+    width: 20%;
+    min-width:580px;
+    flex: 1;
+    margin: 20px;
+    border: 2px solid orange;
 }
 
 .boardDisplay {
@@ -37,6 +56,10 @@ body {
 
     border:2px solid red;
     margin: 20px;    
+}
+
+.secondBoardDisplay h1 {
+    grid-row: 1 / 1;
 }
 
 .pOneGameboard {

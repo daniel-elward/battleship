@@ -6,15 +6,27 @@
     <title>Battleship</title>
 </head>
 <body>
-<div class="wrapper">
-    <div class="title"><h1>BATTLESHIP</h1></div>
+<div class="wrapper">    
+    <div class="title">
+        <h1>BATTLESHIP</h1>
+        <button id="randomise">randomise ships</button>
+    </div>
     <div class="controlPanel">
         <p class="playerLog"></p>
         <p class="aiLog"></p>
     </div>
 
-    <div class="secondBoardDisplay"></div>
-    <div class="boardDisplay"></div>
+    <div class="gameWrapper">
+        <div class="boardWrapper">
+            <h1>Your board</h1>
+            <div class="secondBoardDisplay"></div>
+        </div>
+
+        <div class="boardWrapper">
+            <h1>opponent board</h1>
+            <div class="boardDisplay"></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
