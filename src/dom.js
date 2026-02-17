@@ -4,7 +4,8 @@ function displayGrid(aiBoard, playerBoard){
         
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
-            generateGrid(aiBoard.grid[i][j].isPopulated, i, j);
+            generateGrid("", i, j);
+            // generateGrid(aiBoard.grid[i][j].isPopulated, i, j);
         };
     };
 
@@ -99,16 +100,22 @@ function markCells(board){
     board.missedShots.forEach(element => {
         const coords = `${element[0]}${element[1]}`;
         const div = foo.querySelector(`[data-xy="${coords}"]`);
+        const circleDiv = document.createElement("div");
 
-        div.classList.add("emptyHit");
+        div.appendChild(circleDiv);
+
+        circleDiv.classList.add("emptyHit");
     });
 
     //set hit class to relevent cells
     board.hits.forEach(element => {
         const coords = `${element[0]}${element[1]}`;
         const div = foo.querySelector(`[data-xy="${coords}"]`);
+        const circleDiv = document.createElement("div");
 
-        div.classList.add("populatedHit");
+        div.appendChild(circleDiv);
+
+        circleDiv.classList.add("populatedHit");
     });
 };
 

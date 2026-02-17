@@ -1,31 +1,45 @@
+/* 
+colours
+
+midnight violet #3a3042
+taupe grey #56494c
+platinum #e5e9ec
+sage green #6a994e
+orange #faa916
+
+
+#487187
+*/
+
 body {
     padding: 0;
     margin: 0;
 }
 
 .wrapper{
-    width: 95%;
-    margin: 0 auto;
-
-    border:2px solid red;
+    width: 100%;
+    margin: 20px auto;
 }
 
 .title {
-
-    border:2px solid red;
     margin: 20px;
+    text-align: center;
+}
+
+.title button {
+    width: 120px;
+    height: 90px;
 }
 
 .controlPanel {
+    display: none;
     height: 100px;
-    border:2px solid red;
     margin: 20px;
 }
 
 .gameWrapper {
     display: flex;
     justify-content: space-between;
-    border: 2px solid greenyellow;
 }
 
 .gameWrapper h1 {
@@ -33,20 +47,33 @@ body {
 }
 
 .boardWrapper {
-    width: 20%;
-    min-width:580px;
+    width:500px;
     flex: 1;
-    margin: 20px;
-    border: 2px solid orange;
+    background-color: #487187;
+}
+
+.gridCell {
+    width: 40px;
+    /* width: 50px; */
+    height: 40px;
+    /* height: 50px; */
+    /* border:1px solid black; */
+    box-shadow: 0 2px 4px 0 rgb(43, 43, 43), 2px 0 4px 0 rgb(43, 43, 43);
+    /* box-shadow: 2px 2px 5px black; */
+}
+
+.gridCellTEMP {
+    min-width: 20px;
+    width: 50px;
+    min-height: 20px;
+    height: 50px;
+    border: 1px solid rgb(0, 255, 34);
 }
 
 .boardDisplay {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-
-    border:2px solid red;
-    margin: 20px;    
 }
 
 .secondBoardDisplay {
@@ -54,7 +81,6 @@ body {
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
 
-    border:2px solid red;
     margin: 20px;    
 }
 
@@ -88,27 +114,22 @@ body {
     grid-column: 1 / -1;
 }
 
-
-.gridCell {
-    min-width: 20px;
-    width: 50px;
-    min-height: 20px;
-    height: 50px;
-    border: 1px solid blue;
-}
-
-.gridCellTEMP {
-    min-width: 20px;
-    width: 50px;
-    min-height: 20px;
-    height: 50px;
-    border: 1px solid rgb(0, 255, 34);
-}
-
 .emptyHit{
-    background-color: grey;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border-radius: 50%;
+    left: 25%;
+    top: 25%;
+    background-color: rgb(219, 219, 219);
 }
 
 .populatedHit{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border-radius: 50%;
+    left: 25%;
+    top: 25%;
     background-color: rgb(185, 15, 15);
 }
