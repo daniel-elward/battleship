@@ -24,8 +24,12 @@ function gameController(){
     };
 
     function aiShotHandler(coord){
-        activeBoard.receiveAttack(coord.x, coord.y, activeBoard.grid);
-        updateText(`${pTwo.name}'s last shot was ${coord.x}, ${coord.y}`, "aiLog");
+
+        try {
+            activeBoard.receiveAttack(coord.x, coord.y, activeBoard.grid);
+        } catch {
+            aiEasy(aiShotHandler);
+        };
     };
 
     //check and process the users click. hit, miss, invalid, etc
@@ -59,7 +63,6 @@ function gameController(){
 
             activeBoard.receiveAttack(x, y, activeBoard.grid)
             
-            updateText(`${pOne.name}'s last shot was ${x}, ${y}`, "playerLog");
             if(ai === true){
                 switchPlayer(pOne, pTwo); //switch to AI
                 const aiShot = aiEasy(aiShotHandler); //make selection 
@@ -113,11 +116,11 @@ function gameController(){
     
     function startGame(){ 
 
-        const button = document.getElementById("randomise");
+        const button = document.getElementById("startGame");
 
         button.addEventListener("click", () => {
 
-            //remove random button
+            //remove start button
             button.remove();
 
             //random 0-9 for grid cell

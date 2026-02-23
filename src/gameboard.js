@@ -52,7 +52,7 @@ class Gameboard {
 
     receiveAttack(x, y, gameboard){
         if(gameboard[x][y].isHit){
-            return console.error("cell already hit");
+            throw "cell already hit";
         };
 
         //cell not populated, not previously hit

@@ -11,7 +11,14 @@ function displayGrid(aiBoard, playerBoard){
 
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
-            generateGridTEMP(playerBoard.grid[i][j].isPopulated, i, j);
+            // console.log(playerBoard)
+            
+            if(playerBoard.grid[i][j].isPopulated === false){
+                generateGridTEMP("", i, j);
+            } else {
+                generateGridTEMP("X", i, j);
+                // generateGridTEMP(playerBoard.grid[i][j].isPopulated, i, j); 
+            };
         };
     };
     
@@ -32,7 +39,6 @@ function displayGridTEMP(board){
     
     markCells(board);
 };
-
 
 function cleanDom(){
     const aiCells = document.querySelectorAll(".gridCell");
@@ -95,11 +101,11 @@ function generateGridTEMP(cellContent, xValue, yValue){
 
 //applies required css to each cell i.e hit, miss etc
 function markCells(board){
-    const foo = document.querySelector(`.${board.display}`);
+    const gameBoard = document.querySelector(`.${board.display}`);
 
     board.missedShots.forEach(element => {
         const coords = `${element[0]}${element[1]}`;
-        const div = foo.querySelector(`[data-xy="${coords}"]`);
+        const div = gameBoard.querySelector(`[data-xy="${coords}"]`);
         const circleDiv = document.createElement("div");
 
         div.appendChild(circleDiv);
@@ -110,12 +116,15 @@ function markCells(board){
     //set hit class to relevent cells
     board.hits.forEach(element => {
         const coords = `${element[0]}${element[1]}`;
-        const div = foo.querySelector(`[data-xy="${coords}"]`);
+        const div = gameBoard.querySelector(`[data-xy="${coords}"]`);
         const circleDiv = document.createElement("div");
-
-        div.appendChild(circleDiv);
-
-        circleDiv.classList.add("populatedHit");
+        
+        if(board.owner === "AI - Easy"){
+            div.appendChild(circleDiv);
+            circleDiv.classList.add("populatedHit");
+        } else {
+            div.style.color = "#b90f0f";
+        };
     });
 };
 
@@ -126,4 +135,4 @@ function updateText(text, target){
     element.innerHTML = text;
 };
 
-module.exports = {displayGrid, displayGridTEMP, updateText, markCells, setEventListeners};
+module.exports = {displayGrid, displayGridTEMP, updateText, markCells, setEventListeners, cleanDom};

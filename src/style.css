@@ -1,73 +1,105 @@
-/* 
-colours
-
-midnight violet #3a3042
-taupe grey #56494c
-platinum #e5e9ec
-sage green #6a994e
-orange #faa916
-
-
-#487187
-*/
-
 body {
     padding: 0;
     margin: 0;
+    background-color: #80b0ca;
 }
 
-.wrapper{
-    width: 100%;
-    margin: 20px auto;
-}
-
-.title {
-    margin: 20px;
+h1 {
+    color: white;
+    font-family: "Bowlby One SC", sans-serif;
+    letter-spacing: 1.5px;
+    text-shadow: 
+            -2px -2px 0 #000,
+            2px -2px 0 #000,
+            -2px 2px 0 #000,
+            2px 2px 0 #000,
+            -3px 0px 0 #000,
+            3px 0px 0 #000,
+            0px -3px 0 #000,
+            0px 3px 0 #000;
     text-align: center;
 }
 
-.title button {
+.wrapper{
+    display: grid;
+    grid-template-columns: 150px 3fr 250px;
+    grid-template-rows: repeat(1);
+    width: 100%;
+    min-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid orange;
+}
+
+.gameWrapper {
+    width: 100%;
+    border: 2px solid white;
+}
+
+.title {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+}
+
+.title h1 {
+    background-color: red;
+    border: 5px solid white;
+    border-radius: 8px;
+    padding: 25px;
+    margin: 0;
+}
+
+.startButton{
+    width: 120px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.startButton button {
     width: 120px;
     height: 90px;
 }
 
 .controlPanel {
-    display: none;
-    height: 100px;
-    margin: 20px;
-}
-
-.gameWrapper {
-    display: flex;
-    justify-content: space-between;
-}
-
-.gameWrapper h1 {
-    text-align: center;
+    grid-column: 3;
+    grid-row: 1;
+    width: 200px;
+    margin: 0 0 0 20px;
+    border: 2px solid orange;
 }
 
 .boardWrapper {
+    display: inline-block;
+    grid-column: 2;
     width:500px;
-    flex: 1;
+    padding: 20px;
+    margin: 0 10px 20px 10px;
     background-color: #487187;
+    border-radius: 15px;
+    border: 5px solid white;
 }
 
 .gridCell {
+    display: flex;
     width: 40px;
-    /* width: 50px; */
     height: 40px;
-    /* height: 50px; */
-    /* border:1px solid black; */
+    justify-content: center;
+    align-items: center;
     box-shadow: 0 2px 4px 0 rgb(43, 43, 43), 2px 0 4px 0 rgb(43, 43, 43);
-    /* box-shadow: 2px 2px 5px black; */
 }
 
 .gridCellTEMP {
-    min-width: 20px;
-    width: 50px;
-    min-height: 20px;
-    height: 50px;
-    border: 1px solid rgb(0, 255, 34);
+    display: flex;
+    width: 40px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 25px;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px 0 rgb(43, 43, 43), 2px 0 4px 0 rgb(43, 43, 43);
 }
 
 .boardDisplay {
@@ -79,9 +111,7 @@ body {
 .secondBoardDisplay {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-
-    margin: 20px;    
+    grid-template-rows: repeat(10, 1fr); 
 }
 
 .secondBoardDisplay h1 {
@@ -117,7 +147,6 @@ body {
 .emptyHit{
     width: 20px;
     height: 20px;
-    position: relative;
     border-radius: 50%;
     left: 25%;
     top: 25%;
@@ -127,9 +156,26 @@ body {
 .populatedHit{
     width: 20px;
     height: 20px;
-    position: relative;
     border-radius: 50%;
     left: 25%;
     top: 25%;
+    color: rgb(185, 15, 15);
+    background-color: #b90f0f;
+}
+
+.populatedHit2{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    left: 25%;
+    top: 25%;
+    color: rgb(185, 15, 15);
+    background-color: #1db90f;
+}
+
+.populatedHitAIBoard{
+    width: 20px;
+    height: 20px;
+    color: rgb(185, 15, 15);
     background-color: rgb(185, 15, 15);
 }
