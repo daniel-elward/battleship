@@ -28,12 +28,10 @@ h1 {
     min-width: 500px;
     margin: 0 auto;
     text-align: center;
-    border: 2px solid orange;
 }
 
 .gameWrapper {
     width: 100%;
-    border: 2px solid white;
 }
 
 .title {
@@ -67,7 +65,6 @@ h1 {
     grid-row: 1;
     width: 200px;
     margin: 0 0 0 20px;
-    border: 2px solid orange;
 }
 
 .boardWrapper {
@@ -90,7 +87,7 @@ h1 {
     box-shadow: 0 2px 4px 0 rgb(43, 43, 43), 2px 0 4px 0 rgb(43, 43, 43);
 }
 
-.gridCellTEMP {
+.gridCellPlayer {
     display: flex;
     width: 40px;
     height: 40px;
@@ -108,40 +105,14 @@ h1 {
     grid-template-rows: repeat(10, 1fr);
 }
 
-.secondBoardDisplay {
+.playerBoardDisplay {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr); 
 }
 
-.secondBoardDisplay h1 {
+.playerBoardDisplay h1 {
     grid-row: 1 / 1;
-}
-
-.pOneGameboard {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-
-    border:2px solid red;
-    margin: 20px;
-}
-
-.pOneGameboard p {
-    grid-column: 1 / -1;
-}
-
-.pTwoGameboard {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-
-    border:2px solid red;
-    margin: 20px;
-}
-
-.pTwoGameboard p {
-    grid-column: 1 / -1;
 }
 
 .emptyHit{
@@ -161,21 +132,4 @@ h1 {
     top: 25%;
     color: rgb(185, 15, 15);
     background-color: #b90f0f;
-}
-
-.populatedHit2{
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    left: 25%;
-    top: 25%;
-    color: rgb(185, 15, 15);
-    background-color: #1db90f;
-}
-
-.populatedHitAIBoard{
-    width: 20px;
-    height: 20px;
-    color: rgb(185, 15, 15);
-    background-color: rgb(185, 15, 15);
 }

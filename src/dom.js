@@ -42,7 +42,7 @@ function displayGridTEMP(board){
 
 function cleanDom(){
     const aiCells = document.querySelectorAll(".gridCell");
-    const playerCells = document.querySelectorAll(".gridCellTEMP");
+    const playerCells = document.querySelectorAll(".gridCellPlayer");
 
     aiCells.forEach((element) => {
         element.remove();
@@ -89,9 +89,9 @@ function generateGrid(cellContent, xValue, yValue){
 function generateGridTEMP(cellContent, xValue, yValue){
     const div = document.createElement("div");
     const text = document.createTextNode(cellContent);
-    const target = document.querySelector(".secondBoardDisplay");
+    const target = document.querySelector(".playerBoardDisplay");
 
-    div.classList.add("gridCellTEMP");
+    div.classList.add("gridCellPlayer");
     div.dataset.x = xValue;
     div.dataset.y = yValue;
     div.dataset.xy = `${xValue}${yValue}`;
@@ -119,7 +119,7 @@ function markCells(board){
         const div = gameBoard.querySelector(`[data-xy="${coords}"]`);
         const circleDiv = document.createElement("div");
         
-        if(board.owner === "AI - Easy"){
+        if(board.owner === "aiPlayer"){
             div.appendChild(circleDiv);
             circleDiv.classList.add("populatedHit");
         } else {

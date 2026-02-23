@@ -5,12 +5,12 @@ const {displayGrid, updateText, setEventListeners} = require("./dom.js");
 const aiEasy = require("./ai.js");
 
 // ---------- Player One
-const pOneBoard = new Gameboard("Player One", "pOneGameboard", "secondBoardDisplay")
+const pOneBoard = new Gameboard("Player One", "pOneGameboard", "playerBoardDisplay")
 const pOne = new Player("Player One", pOneBoard, "pOneGameboard");
 
 // ---------- Player Two
-const pTwoBoard = new Gameboard("AI - Easy", "pTwoGameboard", "boardDisplay");
-const pTwo = new Player("AI - Easy", pTwoBoard, "pTwoGameboard");
+const pTwoBoard = new Gameboard("aiPlayer", "pTwoGameboard", "boardDisplay");
+const pTwo = new Player("aiPlayer", pTwoBoard, "pTwoGameboard");
 
 function gameController(){
     let activePlayer = pOne;
