@@ -1,4 +1,4 @@
-const style = require("./style.css");
+require("./style.css");
 const Player = require("./player.js");
 const Gameboard = require("./gameboard.js");
 const {displayGrid, updateText, setEventListeners} = require("./dom.js");
